@@ -61,7 +61,7 @@ async function run() {
 
       containerDef.environment = paramsByType.environment.map(ssmParam => {
         return {
-          name: extractParamName(ssmParam),
+          name: extractParamName(ssmParam, ssmParamPathPattern),
           value: ssmParam.Value
         }
       })
@@ -69,7 +69,7 @@ async function run() {
       containerDef.secrets = paramsByType.secrets.map(ssmParam => {
         return {
           name: extractParamName(ssmParam, ssmParamPathPattern),
-          value: ssmParam.ARN
+          valueFrom: ssmParam.ARN
         }
       })
     }
